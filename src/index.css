@@ -1,0 +1,64 @@
+body {
+  padding: 20px;
+  margin: 0;
+  background-image: url(./images/oitre.jpg);
+  background-size: 100%;
+  font-family: 'Varela Round', sans-serif;
+
+}
+h1, h2, p, ul, li {
+  font-family: 'Varela Round', sans-serif;
+}
+ul.header li {
+  display: inline;
+  list-style-type: none;
+  margin: 0;
+}
+ul.header {
+  background-color: #111;
+  padding: 0;
+}
+.title-foot{
+	width: 37%;
+	border-radius: 10px 10px 0 0;
+	margin: 0 auto;
+	background-color: #111;
+	font-size: 200%;
+}
+h1 .title-foot{
+	color: white;
+}
+ul.header li a {
+  color: #FFF;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 20px;
+  display: inline-block;
+}
+.content {
+  background-color: #FFF;
+  padding: 20px;
+}
+.content h2 {
+  padding: 0;
+  margin: 0;
+}
+.content li {
+  margin-bottom: 10px;
+}
+.nextMatch {
+  font-weight: bold;
+}
+.left{
+  width: 50%
+}
+.right{
+  width: 50%;
+  text-align: right ;
+}
+.content{
+  border-radius: 10px;
+}
+a {
+  color: inherit;
+}
