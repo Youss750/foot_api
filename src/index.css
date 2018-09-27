@@ -62,3 +62,23 @@ ul.header li a {
 a {
   color: inherit;
 }
+.date-foot{
+  background: green;
+  color: white;
+}
+.date-status{
+  float: left;
+  background-color: rgb(0, 105, 0);
+  color: whitesmoke;
+  border-radius: 5px;
+  height: 2.00rem;
+  width: 15%;
+  text-align: center;
+  vertical-align: middle
+}
+.date-status span {
+  vertical-align: -webkit-baseline-middle;
+}
+.widget-date{
+  position: fixed;
+}

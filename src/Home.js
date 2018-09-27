@@ -9,7 +9,8 @@ class Home extends Component {
   constructor(props){
     super(props);
       this.state = {
-        rencontre: []
+        rencontre: [],
+        widgetDate:[],
       };
     }
   componentDidMount(){
@@ -19,7 +20,11 @@ class Home extends Component {
     var dates = [];
     var result = res.data.matches.map((matche,index)=> { 
     return this.displayDate(index, matche, dates)
-  })
+    })
+    var widget = dates.map((widget, index) =>{
+      return <button type="button" className="btn btn-secondary">{widget}</button>
+    })
+    this.setState({widgetDate: widget})
     this.setState({rencontre: result})
    })
   }
@@ -28,7 +33,7 @@ class Home extends Component {
         return (
           <div key={index} id={matche.id} className="col-12">
             <div className="nextMatch">
-            <table className="table">
+            <table className="table col-12">
               <tbody>
                 {this.nextMatch(matche)}
               </tbody>
@@ -40,22 +45,32 @@ class Home extends Component {
         dates.push(this.returnDate(matche.utcDate))
         return (
           <div key={index} id={matche.id} className="col-12">
-          <h4 className="text-center" >{_.upperFirst(this.returnDate(matche.utcDate))}</h4>
-          <div className="nextMatch">
-            <table className="table col-12">
-              <tbody>
-                {this.nextMatch(matche)}
-              </tbody>
-            </table>
+            <h4 className="text-center date-foot">{_.upperFirst(this.returnDate(matche.utcDate))}</h4>
+            <div className="nextMatch">
+              <table className="table col-12">
+                <tbody>
+                  {this.nextMatch(matche)}
+                </tbody>
+              </table>
           </div>
         </div>
         )
       }
   }
+  returnHours(matche){
+    var date = new Date(matche)
+    var minutes = date.getMinutes();
+    var hours = date.getHours();
+    var test = `${hours}:${minutes}`
+    return test.toString()
+  }
   nextMatch(matche){
     return(
       <tr>
         <td className="right">
+        <div className="date-status">
+        <span>{this.returnHours(matche.utcDate)}</span>
+        </div>
           <Link to={{
             pathname: "/team/" + matche.homeTeam.id
           }}>
@@ -63,7 +78,7 @@ class Home extends Component {
             </Link>
         </td>
         <td>
-          -
+          vs
         </td>
         <td className="left">
           <span className="padl">
@@ -85,10 +100,13 @@ class Home extends Component {
   render() {
     return (
       <div>
-          <div>
-          {this.state.rencontre}
-          </div>
+        <div className="btn-group-vertical position-fixed">
+        {this.state.widgetDate}
         </div>
+        <div>
+            {this.state.rencontre}
+        </div>
+      </div>
       );
   }
 }

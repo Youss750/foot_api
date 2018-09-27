@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import axios from 'axios';
-
+import _ from 'lodash';
 class Team extends Component {
   constructor(props){
     super(props);
     this.state = {
       team: [],
       competitions: [],
-      Goalkeeper: [],
-      Defender:[],
-      Midfielder: [],
-      Attacker: []
+      squad: [],
     };
   }
   componentDidMount(){
@@ -18,21 +15,19 @@ class Team extends Component {
     axios.get("http://api.football-data.org/v2/teams/" + this.props.match.params.id, config)
     .then((res) =>{
       var competition = res.data.activeCompetitions.map((competition, index)=> 
-      <div key={index}>
-        <span key={index}>{competition.name}</span>
-      </div>
+        <span key={index}>{competition.name} </span>
       )
-      var squad = this.allSquad(res)
+      var sortByPosition = _.sortBy(res.data.squad, [{position : "Attacker"}, {position : "Midfielder"}, {position : "Defender"}, {position: "Goalkeeper"}])
+      var squad = _.sortBy(this.allSquad(sortByPosition))
       this.setState({team :res.data})
       this.setState({competitions : competition})
       this.setState({squad : squad})
-      console.log(res.data)
 
     })
   }
   allSquad(res){
     return(
-      res.data.squad.map((squad, index) =>{
+      res.map((squad, index) =>{
           return (
             <tr key={index}>
               <td>{squad.name}</td>
@@ -78,10 +73,13 @@ class Team extends Component {
                 <div className='col-md-9 border-left'>
                   <h5 className="card-title text-left">{this.state.team.name}</h5>
                   <hr></hr>
-                  <p className="card-text">Fondée en {this.state.team.founded}</p>
-                  <p className="card-text">Le stade est à l'adresse {this.state.team.address}</p>
-                  <p className="card-text">Joue en</p>
-                  {this.state.competitions}
+                  <div className="text-left">
+                    <p className="card-text"><b>Fondation</b> : {this.state.team.founded}</p>
+                    <p className="card-text"><b>Stade</b> : {this.state.team.address}</p>
+                    <p className="card-text"><b>Joue en : </b>
+                    {this.state.competitions}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
