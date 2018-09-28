@@ -8,23 +8,19 @@ import Home from "./Home";
 import Team from "./Team";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
-import Stuff from "./Stuff";
 
 class Main extends Component {
   render() {
     return (
       <BrowserRouter>
+      <React.Fragment>
         <div className="container">
-          <h1 className="text-center text-light title-foot">Résultat Foot</h1>
-          <ul className="header">
-             <li><NavLink to="/">Home</NavLink></li>
-          </ul>
-          <div className="content">
-             <Route exact path="/" component={Home}/>
-             <Route path="/team/:id" component={Team}/>
-          </div>
+        <h1 className="text-center text-light title-foot"><a href="/">Résultat Foot</a></h1>
         </div>
-      </BrowserRouter>  
+        <Route exact path="/" component={Home} />
+        <Route path="/team/:id" component={Team} />
+      </React.Fragment>
+    </BrowserRouter>
     );
   }
 }

@@ -10,7 +10,6 @@ class Home extends Component {
     super(props);
       this.state = {
         rencontre: [],
-        widgetDate:[],
       };
     }
   componentDidMount(){
@@ -21,10 +20,7 @@ class Home extends Component {
     var result = res.data.matches.map((matche,index)=> { 
     return this.displayDate(index, matche, dates)
     })
-    var widget = dates.map((widget, index) =>{
-      return <button type="button" className="btn btn-secondary">{widget}</button>
-    })
-    this.setState({widgetDate: widget})
+    
     this.setState({rencontre: result})
    })
   }
@@ -45,9 +41,9 @@ class Home extends Component {
         dates.push(this.returnDate(matche.utcDate))
         return (
           <div key={index} id={matche.id} className="col-12">
-            <h4 className="text-center date-foot">{_.upperFirst(this.returnDate(matche.utcDate))}</h4>
+            <h4 className="text-center date-foot effect8">{_.upperFirst(this.returnDate(matche.utcDate))}</h4>
             <div className="nextMatch">
-              <table className="table col-12">
+              <table className="table firstTable col-12">
                 <tbody>
                   {this.nextMatch(matche)}
                 </tbody>
@@ -68,7 +64,7 @@ class Home extends Component {
     return(
       <tr>
         <td className="right">
-        <div className="date-status">
+        <div className="date-status effect8">
         <span>{this.returnHours(matche.utcDate)}</span>
         </div>
           <Link to={{
@@ -77,7 +73,7 @@ class Home extends Component {
             {matche.homeTeam.name}
             </Link>
         </td>
-        <td>
+        <td className="vs">
           vs
         </td>
         <td className="left">
@@ -99,14 +95,9 @@ class Home extends Component {
   }
   render() {
     return (
-      <div>
-        <div className="btn-group-vertical position-fixed">
-        {this.state.widgetDate}
-        </div>
-        <div>
-            {this.state.rencontre}
-        </div>
-      </div>
+      <div className="row">
+      <div className="col-6 mx-auto effect8 content">{this.state.rencontre}</div>
+    </div>
       );
   }
 }
